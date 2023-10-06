@@ -45,7 +45,7 @@
                                 <Label text="Calle" GridPane.rowIndex="2" />
                                 <Label text="Ciudad" GridPane.rowIndex="3" />
                                 <Label text="Codigo Postal" GridPane.rowIndex="4" />
-                                <Label text="Cumpleaños" GridPane.rowIndex="5" />
+                                <Label text="Fecha de Nacimiento" GridPane.rowIndex="5" />
                                 <Label fx:id="firstNameLabel" text="Label" GridPane.columnIndex="1" />
                                 <Label fx:id="lastNameLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                 <Label fx:id="streetLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -56,9 +56,9 @@
                         </GridPane>
                         <HBox layoutX="208.0" layoutY="246.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
                             <children>
-                                <Button layoutX="280.0" layoutY="253.0" mnemonicParsing="false" text="Editar" />
-                                <Button layoutX="337.0" layoutY="253.0" mnemonicParsing="false" text="Borrar" />
-                                <Button layoutX="226.0" layoutY="253.0" mnemonicParsing="false" text="Crear" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                <Button layoutX="280.0" layoutY="253.0" mnemonicParsing="false" onAction="#handleEditPerson" text="Editar" />
+                                <Button layoutX="337.0" layoutY="253.0" mnemonicParsing="false" onAction="#handleDeletePerson" text="Borrar" />
+                                <Button fx:id="handleNewPerson" layoutX="226.0" layoutY="253.0" mnemonicParsing="false" onAction="#handleNewPerson" text="Crear" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                             </children>
                         </HBox>
                     </children>

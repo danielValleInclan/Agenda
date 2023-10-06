@@ -11,4 +11,6 @@ module ch.makery.address {
     exports ch.makery.address;
     exports ch.makery.address.controller;
     opens ch.makery.address.controller to javafx.fxml;
+    exports ch.makery.address.util;
+    opens ch.makery.address.util to javafx.fxml;
 }
