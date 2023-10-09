@@ -155,14 +155,6 @@ public class PersonOverviewController {
             alert.setTitle("No seleccionado");
             alert.setContentText("Por favor selecciona un contacto");
             alert.showAndWait();
-            /*
-            Dialogs.create()
-                    .title("No Selection")
-                    .masthead("No Person Selected")
-                    .message("Please select a person in the table.")
-                    .showWarning();
-
-             */
         }
     }
 
