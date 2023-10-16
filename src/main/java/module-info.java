@@ -6,6 +6,7 @@ module ch.makery.address {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens ch.makery.address to javafx.fxml;
     exports ch.makery.address;
