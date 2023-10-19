@@ -12,21 +12,19 @@ import java.util.Date;
 
 public class PruebaBBDDMain {
     public static void main(String[] args) throws ExeptionPerson, SQLException {
-        ConnectionJDBC connectionJDBC = new ConnectionJDBC();
-        Connection connection = connectionJDBC.connectDB();
-        /*
         PersonVO personVO1 = new PersonVO(1, "Daniel", "Rodriguez", "Dq Talavera",
-                41500, "Sevilla", );
+                    41500, "Sevilla", LocalDate.parse("2003-07-28"));
         PersonVO personVO2 = new PersonVO(2, "Fernando", "Azaña", "Dq Talavera",
-                41500, "Sevilla", Date.of(2003, 7, 28));
+                41500, "Sevilla", LocalDate.parse("2003-07-28"));
         PersonVO personVO3 = new PersonVO(3, "Ferran", "Torres", "Dq Talavera",
-                41500, "Sevilla", LocalDate.of(2003, 7, 28));
+                41500, "Sevilla", LocalDate.parse("2003-07-28"));
 
         PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
         personRepository.addPerson(personVO1);
         personRepository.addPerson(personVO2);
         personRepository.addPerson(personVO3);
-        personRepository.GetListPersons();
-        */
+        for (PersonVO p: personRepository.GetListPersons()) {
+            System.out.println("Nombre: " + p.getFirstName());
+        }
     }
 }

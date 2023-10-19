@@ -1,7 +1,6 @@
 package ch.makery.address.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class PersonVO {
     private Integer id;
@@ -10,9 +9,9 @@ public class PersonVO {
     private String street;
     private Integer postalCode;
     private String city;
-    private Date birthday;
+    private LocalDate birthday;
 
-    public PersonVO(Integer id, String firstName, String lastName, String street, Integer postalCode, String city, Date birthday){
+    public PersonVO(Integer id, String firstName, String lastName, String street, Integer postalCode, String city, LocalDate birthday){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -71,11 +70,11 @@ public class PersonVO {
         this.city = city;
     }
 
-    public Date getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 }

@@ -10,7 +10,8 @@ public class ConnectionJDBC {
     public Connection connectDB() throws SQLException{
         try {
             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/Agenda?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
-            Class.forName("ch.makery.address.model.repository.impl.ConnectionJDBC");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("Conectado a la base de datos");
             return conn;
         } catch (SQLException var2) {
             SQLException ex = var2;

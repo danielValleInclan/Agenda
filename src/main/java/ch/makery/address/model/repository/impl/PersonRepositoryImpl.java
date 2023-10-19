@@ -37,7 +37,7 @@ public class PersonRepositoryImpl implements PersonRepository {
                 String street = rs.getString("street");
                 String city = rs.getString("city");
                 Integer postalCode = rs.getInt("postalCode");
-                Date birthdate = rs.getDate("birthdate");
+                LocalDate birthdate = rs.getDate("birthday").toLocalDate();
                 this.personVO = new PersonVO(id, firstName, lastName, street, postalCode, city, birthdate);
                 this.personVO.setId(id);
                 this.personVOS.add(this.personVO);
@@ -54,10 +54,10 @@ public class PersonRepositoryImpl implements PersonRepository {
         try {
             Connection conn = this.connectionJDBC.connectDB();
             this.stmt = conn.createStatement();
-            this.sentence = "INSERT INTO Personas (id, name, lastName, street, city, postalCode, birthdate) " +
+            this.sentence = "INSERT INTO Personas (id, name, lastName, street, city, postalCode, birthday) " +
                     "VALUES (" + personVO.getId() + ",'" + personVO.getFirstName() + "','" + personVO.getLastName() +
                     "','" + personVO.getStreet()+ "','" + personVO.getCity() + "'," + personVO.getPostalCode() +
-                    "," + personVO.getBirthday() +");";
+                    ",'" + personVO.getBirthday() +"');";
             this.stmt.executeUpdate(this.sentence);
             this.stmt.close();
             this.connectionJDBC.disconnectDB(conn);
@@ -84,7 +84,7 @@ public class PersonRepositoryImpl implements PersonRepository {
             Connection conn = this.connectionJDBC.connectDB();
             this.stmt = conn.createStatement();
             String sql = String.format("UPDATE Personas SET name = '%s', lastName = '%s', street = '%s', " +
-                    "city = '%s', postalCode = '%s', birthdate = '%s'  WHERE id = %d",
+                    "city = '%s', postalCode = '%s', birthday = '%s'  WHERE id = %d",
                     personVO.getFirstName(), personVO.getLastName(), personVO.getStreet(), personVO.getCity(),
                     personVO.getPostalCode(), personVO.getBirthday());
             this.stmt.executeUpdate(sql);
