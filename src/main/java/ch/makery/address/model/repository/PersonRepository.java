@@ -12,7 +12,7 @@ public interface PersonRepository {
 
     void deletePerson(Integer var1) throws ExeptionPerson;
 
-    void editPerson(PersonVO var1) throws ExeptionPerson;
+    void editPerson(PersonVO var1, Integer id) throws ExeptionPerson;
 
     int lastId() throws ExeptionPerson;
 }

@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class PersonRepositoryImpl implements PersonRepository {
     private final ConnectionJDBC connectionJDBC = new ConnectionJDBC();
@@ -38,8 +37,7 @@ public class PersonRepositoryImpl implements PersonRepository {
                 String city = rs.getString("city");
                 Integer postalCode = rs.getInt("postalCode");
                 LocalDate birthdate = rs.getDate("birthday").toLocalDate();
-                this.personVO = new PersonVO(id, firstName, lastName, street, postalCode, city, birthdate);
-                this.personVO.setId(id);
+                this.personVO = new PersonVO(firstName, lastName, street, postalCode, city, birthdate);
                 this.personVOS.add(this.personVO);
             }
 
@@ -54,8 +52,8 @@ public class PersonRepositoryImpl implements PersonRepository {
         try {
             Connection conn = this.connectionJDBC.connectDB();
             this.stmt = conn.createStatement();
-            this.sentence = "INSERT INTO Personas (id, name, lastName, street, city, postalCode, birthday) " +
-                    "VALUES (" + personVO.getId() + ",'" + personVO.getFirstName() + "','" + personVO.getLastName() +
+            this.sentence = "INSERT INTO Personas (name, lastName, street, city, postalCode, birthday) " +
+                    "VALUES ('" + personVO.getFirstName() + "','" + personVO.getLastName() +
                     "','" + personVO.getStreet()+ "','" + personVO.getCity() + "'," + personVO.getPostalCode() +
                     ",'" + personVO.getBirthday() +"');";
             this.stmt.executeUpdate(this.sentence);
@@ -79,14 +77,14 @@ public class PersonRepositoryImpl implements PersonRepository {
         }
     }
 
-    public void editPerson(PersonVO personVO) throws ExeptionPerson {
+    public void editPerson(PersonVO personVO, Integer id) throws ExeptionPerson {
         try {
             Connection conn = this.connectionJDBC.connectDB();
             this.stmt = conn.createStatement();
             String sql = String.format("UPDATE Personas SET name = '%s', lastName = '%s', street = '%s', " +
                     "city = '%s', postalCode = '%s', birthday = '%s'  WHERE id = %d",
                     personVO.getFirstName(), personVO.getLastName(), personVO.getStreet(), personVO.getCity(),
-                    personVO.getPostalCode(), personVO.getBirthday());
+                    personVO.getPostalCode(), personVO.getBirthday(), id);
             this.stmt.executeUpdate(sql);
         } catch (Exception var4) {
             throw new ExeptionPerson("No se ha podido relaizr la edición");
