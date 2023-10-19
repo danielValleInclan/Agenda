@@ -14,13 +14,17 @@ public class PruebaBBDDMain {
                 41500, "Sevilla", LocalDate.parse("2003-07-28"));
         PersonVO personVO3 = new PersonVO("Ferran", "Torres", "Dq Talavera",
                 41500, "Sevilla", LocalDate.parse("2003-07-28"));
+        PersonVO personVO4 = new PersonVO("Editado", "Editado", "Editado",
+                12344, "Madrid", LocalDate.parse("2015-01-01"));
 
         PersonRepositoryImpl personRepository = new PersonRepositoryImpl();
         personRepository.addPerson(personVO1);
         personRepository.addPerson(personVO2);
         personRepository.addPerson(personVO3);
+        personRepository.addPerson(personVO4);
+        personRepository.editPerson(personVO4, personVO1.getId());
         for (PersonVO p: personRepository.GetListPersons()) {
-            System.out.println("Nombre: " + p.getFirstName());
+            System.out.println("Id: " + p.getId() + " Nombre: " + p.getFirstName() + " Apellido: " + p.getLastName());
         }
     }
 }

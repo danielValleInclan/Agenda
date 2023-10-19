@@ -3,6 +3,8 @@ package ch.makery.address.model;
 import java.time.LocalDate;
 
 public class PersonVO {
+
+    private Integer id;
     private String firstName;
     private String lastName;
     private String street;
@@ -19,6 +21,11 @@ public class PersonVO {
         this.city = city;
         this.birthday = birthday;
     }
+
+    public Integer getId(){
+        return this.id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
