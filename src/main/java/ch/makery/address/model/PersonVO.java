@@ -22,8 +22,8 @@ public class PersonVO {
         this.birthday = birthday;
     }
 
-    public Integer getId(){
-        return this.id;
+    public Integer getId() {
+        return id;
     }
 
     public String getFirstName() {

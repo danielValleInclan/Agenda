@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class ConversorPerson {
     public static Person convertPersonVO_Person(PersonVO personVO){
         Person person = new Person();
+        person.setId(person.getId());
         person.setFirstName(personVO.getFirstName());
         person.setLastName(personVO.getLastName());
         person.setCity(personVO.getCity());

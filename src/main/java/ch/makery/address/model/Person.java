@@ -5,6 +5,8 @@ import javafx.beans.property.*;
 import java.time.LocalDate;
 
 public class Person {
+
+    private IntegerProperty id;
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty street;
@@ -27,6 +29,9 @@ public class Person {
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
 
+    public Integer getId(){ return getId(); }
+
+    public void setId(Integer id) { this.id.set(id); }
     public String getFirstName() {
         return firstName.get();
     }

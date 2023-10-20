@@ -139,20 +139,12 @@ public class PersonEditDialogController {
             return true;
         } else {
 
+            // Show the error message.
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
             alert.setTitle("Campos incorrectos");
             alert.setContentText("Por favor introduce datos válidos");
             alert.showAndWait();
-
-            // Show the error message.
-            /*
-            Dialogs.create()
-                    .title("Invalid Fields")
-                    .masthead("Please correct invalid fields")
-                    .message(errorMessage)
-                    .showError();
-             */
             return false;
         }
     }

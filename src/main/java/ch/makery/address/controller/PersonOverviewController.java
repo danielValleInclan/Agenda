@@ -1,7 +1,6 @@
 package ch.makery.address.controller;
 
 
-import ch.makery.address.HelloApplication;
 import ch.makery.address.MainApp;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
@@ -112,13 +111,6 @@ public class PersonOverviewController {
             alert.setTitle("No seleccionado");
             alert.setContentText("No has seleccionado ningún Contacto");
             alert.showAndWait();
-         /*   Dialog.create()
-                    .title("No Selection")
-                    .masthead("No Person Selected")
-                    .message("Please select a person in the table.")
-                    .showWarning();
-
-          */
         }
     }
 
