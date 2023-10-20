@@ -22,7 +22,7 @@ public class ConnectionJDBC {
                 System.out.println("SQLState:  " + ex.getSQLState());
                 System.out.println("ErrorCode: " + ex.getErrorCode());
                 ex = ex.getNextException();
-                System.out.println("");
+                System.out.println();
             }
 
             throw new SQLException();
@@ -43,7 +43,7 @@ public class ConnectionJDBC {
                 System.out.println("SQLState:  " + ex.getSQLState());
                 System.out.println("ErrorCode: " + ex.getErrorCode());
                 ex = ex.getNextException();
-                System.out.println("");
+                System.out.println();
             }
         }
 
