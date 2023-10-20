@@ -2,7 +2,13 @@ package ch.makery.address;
 
 import ch.makery.address.controller.PersonEditDialogController;
 import ch.makery.address.controller.PersonOverviewController;
+import ch.makery.address.model.AgendaModel;
+import ch.makery.address.model.ExeptionPerson;
 import ch.makery.address.model.Person;
+import ch.makery.address.model.PersonVO;
+import ch.makery.address.model.repository.PersonRepository;
+import ch.makery.address.model.repository.impl.PersonRepositoryImpl;
+import ch.makery.address.util.ConversorPerson;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainApp extends Application {
 
@@ -22,7 +29,7 @@ public class MainApp extends Application {
     private BorderPane rootLayout;
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("AddressApp");
 
@@ -37,25 +44,19 @@ public class MainApp extends Application {
         launch();
     }
 
-    private ObservableList<Person> personData = FXCollections.observableArrayList();
+    private final ObservableList<Person> personData = FXCollections.observableArrayList();
 
-    public MainApp(){
+    public MainApp() throws ExeptionPerson {
         // Add some sample data
-        personData.add(new Person("Hans", "Muster"));
-        personData.add(new Person("Ruth", "Mueller"));
-        personData.add(new Person("Heinz", "Kurz"));
-        personData.add(new Person("Cornelia", "Meier"));
-        personData.add(new Person("Werner", "Meyer"));
-        personData.add(new Person("Lydia", "Kunz"));
-        personData.add(new Person("Anna", "Best"));
-        personData.add(new Person("Stefan", "Meier"));
-        personData.add(new Person("Martin", "Mueller"));
+        PersonRepository personRepository = new PersonRepositoryImpl();
+        AgendaModel agendaModel = new AgendaModel();
+        agendaModel.setPersonRepository(personRepository);
+        ArrayList<PersonVO> personVOS = agendaModel.listPersonVO();
+        ArrayList<Person> personArrayList = ConversorPerson.convertListPersonVO_Person(personVOS);
+        personData.addAll(personArrayList);
+
     }
 
-    /**
-     * Returns the data as an observable list of Persons.
-     * @return
-     */
     public ObservableList<Person> getPersonData() {
         return personData;
     }
@@ -65,7 +66,7 @@ public class MainApp extends Application {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("PersonOverview.fxml"));
-            AnchorPane personOverview = (AnchorPane) loader.load();
+            AnchorPane personOverview = loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(personOverview);
@@ -88,7 +89,7 @@ public class MainApp extends Application {
             // FXMLLoader loader = new FXMLLoader();
             FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("RootLayout.fxml"));
             // loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            rootLayout = loader.load();
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -112,7 +113,7 @@ public class MainApp extends Application {
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("PersonEditDialog.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
+            AnchorPane page = loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
