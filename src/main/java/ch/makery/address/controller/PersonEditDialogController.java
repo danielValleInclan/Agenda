@@ -1,5 +1,7 @@
 package ch.makery.address.controller;
 
+import ch.makery.address.model.AgendaModel;
+import ch.makery.address.model.ExeptionPerson;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 import javafx.fxml.FXML;
@@ -24,6 +26,8 @@ public class PersonEditDialogController {
     private Stage dialogStage;
     private Person person;
     private boolean okClicked = false;
+
+    private AgendaModel agendaModel = new AgendaModel();
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -72,7 +76,7 @@ public class PersonEditDialogController {
      * Called when the user clicks ok.
      */
     @FXML
-    private void handleOk() {
+    private void handleOk() throws ExeptionPerson {
         if (isInputValid()) {
             person.setFirstName(firstNameField.getText());
             person.setLastName(lastNameField.getText());
@@ -80,7 +84,7 @@ public class PersonEditDialogController {
             person.setPostalCode(Integer.parseInt(postalCodeField.getText()));
             person.setCity(cityField.getText());
             person.setBirthday(DateUtil.parse(birthdayField.getText()));
-
+            agendaModel.editPersonVO(person);
             okClicked = true;
             dialogStage.close();
         }

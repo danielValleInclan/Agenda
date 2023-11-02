@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AgendaModel {
 
-    private PersonRepository personRepository;
+    private PersonRepository personRepository = new PersonRepositoryImpl();
 
     public ArrayList<PersonVO> listPersonVO() throws ExeptionPerson {
         return this.personRepository.GetListPersons();
@@ -19,21 +19,21 @@ public class AgendaModel {
     }
 
     public void addPersonVO(Person person) throws ExeptionPerson {
-        personRepository = new PersonRepositoryImpl();
         PersonVO personVO = ConversorPerson.convertPersonToPersonVO(person);
         personRepository.addPerson(personVO);
     }
 
     public void deletePersonVO(Person person) throws ExeptionPerson {
-        personRepository = new PersonRepositoryImpl();
         PersonVO personVO = ConversorPerson.convertPersonToPersonVO(person);
-        System.out.println(personVO.getId());
         personRepository.deletePerson(personVO.getId());
     }
 
     public void editPersonVO (Person person) throws ExeptionPerson {
-        personRepository = new PersonRepositoryImpl();
         PersonVO personVO = ConversorPerson.convertPersonToPersonVO(person);
         personRepository.editPerson(personVO, personVO.getId());
+    }
+
+    public int getLastId() throws ExeptionPerson {
+        return personRepository.lastId()+1;
     }
 }

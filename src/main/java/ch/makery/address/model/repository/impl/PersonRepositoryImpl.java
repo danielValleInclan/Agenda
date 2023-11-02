@@ -38,6 +38,7 @@ public class PersonRepositoryImpl implements PersonRepository {
                 Integer postalCode = rs.getInt("postalCode");
                 LocalDate birthdate = rs.getDate("birthday").toLocalDate();
                 this.personVO = new PersonVO(firstName, lastName, street, postalCode, city, birthdate);
+                this.personVO.setId(id);
                 this.personVOS.add(this.personVO);
             }
 

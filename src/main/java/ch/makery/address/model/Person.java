@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 public class Person {
 
-    private IntegerProperty id;
+    private Integer id;
     private final StringProperty firstName;
     private final StringProperty lastName;
     private final StringProperty street;
@@ -29,9 +29,9 @@ public class Person {
         this.birthday = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
 
-    public Integer getId(){ return getId(); }
+    public Integer getId(){ return this.id; }
 
-    public void setId(Integer id) { this.id.set(id); }
+    public void setId(Integer id) { this.id = id; }
     public String getFirstName() {
         return firstName.get();
     }

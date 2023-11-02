@@ -129,6 +129,7 @@ public class PersonOverviewController {
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
         if (okClicked) {
             mainApp.getPersonData().add(tempPerson); //Añade a la ObservableList de personas
+            tempPerson.setId(agendaModel.getLastId());
             agendaModel.addPersonVO(tempPerson);
         }
     }
