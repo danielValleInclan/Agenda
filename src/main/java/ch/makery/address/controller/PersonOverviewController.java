@@ -2,6 +2,8 @@ package ch.makery.address.controller;
 
 
 import ch.makery.address.MainApp;
+import ch.makery.address.model.AgendaModel;
+import ch.makery.address.model.ExeptionPerson;
 import ch.makery.address.model.Person;
 import ch.makery.address.util.DateUtil;
 import javafx.fxml.FXML;
@@ -28,6 +30,7 @@ public class PersonOverviewController {
     private Label cityLabel;
     @FXML
     private Label birthdayLabel;
+    AgendaModel agendaModel = new AgendaModel();
 
     // Reference to the main application.
     private MainApp mainApp;
@@ -100,9 +103,11 @@ public class PersonOverviewController {
      * Called when the user clicks on the delete button.
      */
     @FXML
-    private void handleDeletePerson() {
+    private void handleDeletePerson() throws ExeptionPerson {
         int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
+            Person person = personTable.getItems().get(selectedIndex);
+            agendaModel.deletePersonVO(person);
             personTable.getItems().remove(selectedIndex);
         } else {
             // Nothing selected.
@@ -119,11 +124,12 @@ public class PersonOverviewController {
      * details for a new person.
      */
     @FXML
-    private void handleNewPerson() {
+    private void handleNewPerson() throws ExeptionPerson {
         Person tempPerson = new Person();
         boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
         if (okClicked) {
-            mainApp.getPersonData().add(tempPerson);
+            mainApp.getPersonData().add(tempPerson); //Añade a la ObservableList de personas
+            agendaModel.addPersonVO(tempPerson);
         }
     }
 

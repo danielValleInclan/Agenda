@@ -12,6 +12,17 @@ public class PersonVO {
     private String city;
     private LocalDate birthday;
 
+    public PersonVO(Integer id, String firstName, String lastName, String street, Integer postalCode, String city, LocalDate birthday){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+        this.street = street;
+        this.postalCode = postalCode;
+        this.city = city;
+        this.birthday = birthday;
+    }
+
     public PersonVO(String firstName, String lastName, String street, Integer postalCode, String city, LocalDate birthday){
         this.firstName = firstName;
         this.lastName = lastName;

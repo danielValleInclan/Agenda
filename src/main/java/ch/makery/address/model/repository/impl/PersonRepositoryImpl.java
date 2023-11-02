@@ -96,15 +96,24 @@ public class PersonRepositoryImpl implements PersonRepository {
 
         try {
             Connection conn = this.connectionJDBC.connectDB();
-            Statement command = conn.createStatement();
+            Statement comando = conn.createStatement();
 
-            for(ResultSet register = command.executeQuery("SELECT id FROM Personas ORDER BY id DESC LIMIT 1");
-                register.next(); lastPersonId = register.getInt("id")) {
+            ResultSet resultSet =comando.executeQuery("SELECT AUTO_INCREMENT "+
+                    "FROM information_schema.TABLES "+
+                    "WHERE TABLE_SCHEMA = 'Agenda' "+
+                    "AND TABLE_NAME = 'Personas'");
+
+            {
+                if(resultSet.next()){
+                    lastPersonId=resultSet.getInt("AUTO_INCREMENT")-1;
+                }
+                System.out.println(lastPersonId);
+                return lastPersonId;
             }
 
-            return lastPersonId;
-        } catch (SQLException var5) {
-            throw new ExeptionPerson("No se ha podido realizar la busqueda del ID");
+        } catch (SQLException e) {
+            System.out.println(e);
+            throw new ExeptionPerson("No se ha podido realizar la búsqueda del ID");
         }
     }
 }
