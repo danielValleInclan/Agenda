@@ -14,6 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -51,10 +52,17 @@ public class MainApp extends Application {
         PersonRepository personRepository = new PersonRepositoryImpl();
         AgendaModel agendaModel = new AgendaModel();
         agendaModel.setPersonRepository(personRepository);
-        ArrayList<PersonVO> personVOS = agendaModel.listPersonVO();
-        ArrayList<Person> personArrayList = ConversorPerson.convertListPersonVO_Person(personVOS);
-        personData.addAll(personArrayList);
-
+        try {
+            ArrayList<PersonVO> personVOS = agendaModel.listPersonVO();
+            ArrayList<Person> personArrayList = ConversorPerson.convertListPersonVO_Person(personVOS);
+            personData.addAll(personArrayList);
+        } catch (ExeptionPerson exeptionPerson){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText("Error al listar las personas.");
+            alert.setTitle("Error con la base de datos");
+            alert.setContentText("No se puede conectar con la base de datos");
+            alert.showAndWait();
+        }
     }
 
     public ObservableList<Person> getPersonData() {
