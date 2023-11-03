@@ -64,6 +64,10 @@ public class Person {
         this.street.set(street);
     }
 
+    public StringProperty streetProperty() {
+        return street;
+    }
+
     public int getPostalCode() {
         return postalCode.get();
     }
@@ -75,7 +79,9 @@ public class Person {
     public String getCity() {
         return city.get();
     }
-
+    public IntegerProperty postalCodeProperty() {
+        return postalCode;
+    }
     public void setCity(String city) {
         this.city.set(city);
     }
@@ -83,7 +89,9 @@ public class Person {
     public LocalDate getBirthday() {
         return birthday.get();
     }
-
+    public ObjectProperty<LocalDate> birthdayProperty() {
+        return birthday;
+    }
     public void setBirthday(LocalDate birthday) {
         this.birthday.set(birthday);
     }
