@@ -126,7 +126,7 @@ public class MainApp extends Application {
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Editar contacto");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initModality(Modality.NONE);
             dialogStage.initOwner(primaryStage);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
@@ -135,7 +135,7 @@ public class MainApp extends Application {
             PersonEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setPerson(person);
-
+            controller.showProgress();
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
@@ -143,6 +143,8 @@ public class MainApp extends Application {
         } catch (IOException e) {
             e.printStackTrace();
             return false;
+        } catch (ExeptionPerson e) {
+            throw new RuntimeException(e);
         }
     }
 
