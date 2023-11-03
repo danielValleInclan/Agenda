@@ -108,7 +108,6 @@ public class PersonRepositoryImpl implements PersonRepository {
                 if(resultSet.next()){
                     lastPersonId=resultSet.getInt("AUTO_INCREMENT")-1;
                 }
-                System.out.println(lastPersonId);
                 return lastPersonId;
             }
 

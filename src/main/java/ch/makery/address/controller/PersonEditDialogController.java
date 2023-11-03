@@ -87,7 +87,7 @@ public class PersonEditDialogController {
      */
     @FXML
     private void handleOk() throws ExeptionPerson {
-        if (isInputValid()) {
+        if (isInputValid() && postalCodeField.getText().length() == 5) {
             person.setFirstName(firstNameField.getText());
             person.setLastName(lastNameField.getText());
             person.setStreet(streetField.getText());
@@ -97,6 +97,12 @@ public class PersonEditDialogController {
             agendaModel.editPersonVO(person);
             okClicked = true;
             dialogStage.close();
+        } else if (postalCodeField.getText().length() != 5) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setTitle("Código postal incorrecto");
+            alert.setContentText("El código postal debe de tener 5 digitos");
+            alert.showAndWait();
         }
     }
 
