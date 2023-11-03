@@ -1,7 +1,9 @@
 package ch.makery.address;
 
+import ch.makery.address.controller.BirthdayStatisticsController;
 import ch.makery.address.controller.PersonEditDialogController;
 import ch.makery.address.controller.PersonOverviewController;
+import ch.makery.address.controller.RootLayoutController;
 import ch.makery.address.model.AgendaModel;
 import ch.makery.address.model.ExeptionPerson;
 import ch.makery.address.model.Person;
@@ -104,6 +106,9 @@ public class MainApp extends Application {
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
         } catch (IOException e) {
             throw new RuntimeException();
         }
@@ -146,6 +151,33 @@ public class MainApp extends Application {
             throw new RuntimeException();
         } catch (ExeptionPerson e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Opens a dialog to show birthday statistics.
+     */
+    public void showBirthdayStatistics() {
+        try {
+            // Load the fxml file and create a new stage for the popup.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource("BirthdayStatistics.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Estadísticas cumpleaños");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the persons into the controller.
+            BirthdayStatisticsController controller = loader.getController();
+            controller.setPersonData(personData);
+
+            dialogStage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
