@@ -3,16 +3,15 @@ package ch.makery.address.controller;
 import ch.makery.address.model.AgendaModel;
 import ch.makery.address.model.ExeptionPerson;
 import ch.makery.address.model.Person;
-import ch.makery.address.model.PersonVO;
 import ch.makery.address.util.DateUtil;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
 
 public class PersonEditDialogController {
     @FXML
@@ -35,8 +34,12 @@ public class PersonEditDialogController {
     private Stage dialogStage;
     private Person person;
     private boolean okClicked = false;
-
     private AgendaModel agendaModel = new AgendaModel();
+
+    private IntegerProperty valueProgressBar = new SimpleIntegerProperty(); //Número de personas
+
+    public PersonEditDialogController() {
+    }
 
     /**
      * Initializes the controller class. This method is automatically called
@@ -168,10 +171,17 @@ public class PersonEditDialogController {
         }
     }
 
-    public void showProgress() throws ExeptionPerson {
-        ArrayList<PersonVO> listPersonVO = agendaModel.listPersonVO();
-        int numPersonVO = listPersonVO.size();
-        progressBar.setProgress((double) numPersonVO / 50);
-        progressNum.setText(numPersonVO + "/50");
+    public void updateProgressBar() throws ExeptionPerson {
+        this.valueProgressBar.bind(agendaModel.getNumPersonVO());
+        this.progressBar.setProgress((double) valueProgressBar.getValue() / 50);
+        this.progressNum.setText(valueProgressBar.getValue()+ "/50");
+        valueProgressBar.addListener((observableValue, number, t1) -> {
+            progressBar.setProgress( (double) valueProgressBar.getValue() / 50);
+            progressNum.setText(valueProgressBar.getValue()+ "/50");
+        });
+    }
+
+    public void setAgendaModel(AgendaModel agendaModel) {
+        this.agendaModel = agendaModel;
     }
 }

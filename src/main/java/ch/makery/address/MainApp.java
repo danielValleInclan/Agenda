@@ -28,7 +28,7 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-
+    private final AgendaModel agendaModel = new AgendaModel();
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -47,14 +47,14 @@ public class MainApp extends Application {
 
     private final ObservableList<Person> personData = FXCollections.observableArrayList();
 
-    public MainApp() throws ExeptionPerson {
+    public MainApp() {
         // Add some sample data
         PersonRepository personRepository = new PersonRepositoryImpl();
-        AgendaModel agendaModel = new AgendaModel();
         agendaModel.setPersonRepository(personRepository);
         try {
             ArrayList<PersonVO> personVOS = agendaModel.listPersonVO();
             ArrayList<Person> personArrayList = ConversorPerson.convertListPersonVO_Person(personVOS);
+            agendaModel.setNumPersonVO(personArrayList.size());
             personData.addAll(personArrayList);
         } catch (ExeptionPerson exeptionPerson){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -82,9 +82,10 @@ public class MainApp extends Application {
             // Give the controller access to the main app.
             PersonOverviewController controller = loader.getController();
             controller.setMainApp(this);
+            controller.setAgendaModel(agendaModel);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 
@@ -104,7 +105,7 @@ public class MainApp extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
     }
 
@@ -134,15 +135,15 @@ public class MainApp extends Application {
             // Set the person into the controller.
             PersonEditDialogController controller = loader.getController();
             controller.setDialogStage(dialogStage);
+            controller.setAgendaModel(agendaModel);
             controller.setPerson(person);
-            controller.showProgress();
+            controller.updateProgressBar();
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
 
             return controller.isOkClicked();
         } catch (IOException e) {
-            e.printStackTrace();
-            return false;
+            throw new RuntimeException();
         } catch (ExeptionPerson e) {
             throw new RuntimeException(e);
         }

@@ -16,15 +16,13 @@ public class PersonRepositoryImpl implements PersonRepository {
 
     private Statement stmt;
     private String sentence;
-    private ArrayList<PersonVO> personVOS;
-    private PersonVO personVO;
 
     public PersonRepositoryImpl(){}
 
     public ArrayList<PersonVO> GetListPersons() throws ExeptionPerson{
         try {
             Connection conn = this.connectionJDBC.connectDB();
-            this.personVOS = new ArrayList();
+            ArrayList<PersonVO> personVOS = new ArrayList<>();
             this.stmt = conn.createStatement();
             this.sentence = "SELECT * FROM Personas";
             ResultSet rs = this.stmt.executeQuery(this.sentence);
@@ -37,13 +35,13 @@ public class PersonRepositoryImpl implements PersonRepository {
                 String city = rs.getString("city");
                 Integer postalCode = rs.getInt("postalCode");
                 LocalDate birthdate = rs.getDate("birthday").toLocalDate();
-                this.personVO = new PersonVO(firstName, lastName, street, postalCode, city, birthdate);
-                this.personVO.setId(id);
-                this.personVOS.add(this.personVO);
+                PersonVO personVO = new PersonVO(firstName, lastName, street, postalCode, city, birthdate);
+                personVO.setId(id);
+                personVOS.add(personVO);
             }
 
             this.connectionJDBC.disconnectDB(conn);
-            return this.personVOS;
+            return personVOS;
         } catch (SQLException var6) {
             throw new ExeptionPerson("No se ha podido realizar la operación");
         }
@@ -112,7 +110,6 @@ public class PersonRepositoryImpl implements PersonRepository {
             }
 
         } catch (SQLException e) {
-            System.out.println(e);
             throw new ExeptionPerson("No se ha podido realizar la búsqueda del ID");
         }
     }

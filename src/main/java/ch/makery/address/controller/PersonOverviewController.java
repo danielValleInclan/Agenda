@@ -30,7 +30,7 @@ public class PersonOverviewController {
     private Label cityLabel;
     @FXML
     private Label birthdayLabel;
-    AgendaModel agendaModel = new AgendaModel();
+    AgendaModel agendaModel;
 
     // Reference to the main application.
     private MainApp mainApp;
@@ -108,6 +108,7 @@ public class PersonOverviewController {
         if (selectedIndex >= 0) {
             Person person = personTable.getItems().get(selectedIndex);
             agendaModel.deletePersonVO(person);
+            agendaModel.decNumPersonVO();
             personTable.getItems().remove(selectedIndex);
         } else {
             // Nothing selected.
@@ -131,6 +132,7 @@ public class PersonOverviewController {
             mainApp.getPersonData().add(tempPerson); //Añade a la ObservableList de personas
             tempPerson.setId(agendaModel.getLastId());
             agendaModel.addPersonVO(tempPerson);
+            agendaModel.incNumPersonVO();
         }
     }
 
@@ -157,4 +159,7 @@ public class PersonOverviewController {
         }
     }
 
+    public void setAgendaModel(AgendaModel agendaModel) {
+        this.agendaModel = agendaModel;
+    }
 }
