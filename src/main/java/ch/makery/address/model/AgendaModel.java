@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class AgendaModel {
 
-    private PersonRepository personRepository = new PersonRepositoryImpl();
+    private PersonRepository personRepository;
     IntegerProperty numPersonVO = new SimpleIntegerProperty();
 
     public IntegerProperty getNumPersonVO() {
